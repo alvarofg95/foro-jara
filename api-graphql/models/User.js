@@ -4,11 +4,6 @@ const Schema = mongoose.Schema;
 
 // Create the User Schema.
 const UserSchema = new Schema({
-  id: {
-    type: String,
-    required: true,
-    unique: true
-  },
   nick: {
     type: String,
     required: true,
@@ -22,6 +17,11 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  role: {
+    type: String,
+    enum: ['ADMIN', 'USER'],
+    default: 'USER'
   }
 });
 
