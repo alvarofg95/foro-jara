@@ -2,13 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import './index.css';
+import './styles/index.css';
 import MainLayout from './layout/MainLayout';
 import * as serviceWorker from './serviceWorker';
-import todoApp from './reducers/auth';
-
-const store = createStore(todoApp);
+import store from './redux/store/index';
 
 ReactDOM.render(
   <Provider store={store}>

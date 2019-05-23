@@ -1,7 +1,7 @@
 import mongodb from 'mongodb';
 // The User schema.
 import User from '../../../models/User';
-import encryptPassword from '../../../utils/encryptPassword';
+import { encryptPassword, comparePassword } from '../../../utils/encryptPassword';
 import ERRORS from '../../../utils/errors';
 import createToken from '../../../utils/createToken';
 
@@ -26,8 +26,26 @@ export default {
     login: (root, { nick, password }) => {
       const hashedPassword = encryptPassword(password);
       return new Promise((resolve, reject) => {
-        User.findOne({ nick, password: hashedPassword }).exec((err, res) => {
-          err ? reject(err) : resolve(res);
+        User.findOne({ nick }).exec((err, res) => {
+          console.log({ nick, res, hashedPassword });
+          if (err && !res) {
+            reject(err);
+          } else if (!res) {
+            reject(new Error('No hay ningún usuario con ese nick'));
+          } else {
+            const isSamePassword = comparePassword(password, res.password);
+            if (isSamePassword) {
+              resolve({
+                _id: res._id,
+                role: res.role,
+                nick: res.nick,
+                email: res.email,
+                token: createToken(res)
+              });
+            } else {
+              reject(new Error('No hay ningún usuario con esa contraseña'));
+            }
+          }
         });
       });
     }

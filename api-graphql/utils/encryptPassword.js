@@ -1,12 +1,10 @@
-import crypto from 'crypto';
+import passwordHash from 'password-hash';
 
-const encryptPassword = password => {
-  // creating a unique salt for a particular user
-  const salt = crypto.randomBytes(16).toString('hex');
-
-  // hashing user's salt and password with 1000 iterations, 64 length and sha512 digest
-  const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, `sha512`).toString(`hex`);
+export const encryptPassword = password => {
+  const hash = passwordHash.generate(password);
   return hash;
 };
 
-export default encryptPassword;
+export const comparePassword = (plainText, hash) => {
+  return passwordHash.verify(plainText, hash);
+};
