@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import LOGIN_QUERY from '../apiCalls/login.query';
+import ADD_USER_MUTATION from '../apiCalls/addUser.mutation';
 import postToAPI from '../apiCalls/postToAPI';
 import reduxActions from '../redux/actions/index';
 import TextInput from './inputs/TextInput';
@@ -20,64 +20,64 @@ class Login extends Component {
     super(props);
     this.state = {
       error: false,
-      errorMessage: null
+      errorMessage: null,
+      accessToPanel: false
     };
 
     this.nick = React.createRef();
+    this.email = React.createRef();
     this.password = React.createRef();
 
-    this.userLogin = this.userLogin.bind(this);
-    this.openSignInForm = this.openSignInForm.bind(this);
+    this.registryUser = this.registryUser.bind(this);
+    this.cancelForm = this.cancelForm.bind(this);
   }
 
-  userLogin() {
-    const nick = this.nick.current.input.current.value;
-    const password = this.password.current.input.current.value;
-    if (nick && password) {
-      postToAPI(LOGIN_QUERY, { nick, password }).then(res => {
-        if (res && res.data && res.data.login) {
-          const {
-            data: {
-              login: { token, email }
-            }
-          } = res;
-          if (token) {
-            this.props.loginUser({
-              token,
-              nick,
-              email
-            });
-            this.setState({ accessToPanel: true });
-          }
-        } else {
-          this.setState({
-            error: true,
-            errorMessage: 'No existe un usuario con esas credenciales'
-          });
-        }
-      });
-    } else {
-      this.setState({
-        error: true,
-        errorMessage: 'El nick y la contraseña son campos obligatorios'
-      });
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.token && !this.props.token) {
+      this.setState({ accessToPanel: true });
     }
   }
 
-  openSignInForm() {
-    this.setState({ registerForm: true });
+  registryUser() {
+    const nick = this.nick.current.input.current.value;
+    const email = this.nick.current.input.current.value;
+    const password = this.password.current.input.current.value;
+
+    postToAPI(ADD_USER_MUTATION, { nick, email, password }).then(res => {
+      if (res && res.data && res.data.addUser) {
+        const {
+          data: {
+            addUser: { token, email }
+          }
+        } = res;
+        if (token) {
+          this.props.loginUser({
+            token,
+            nick,
+            email
+          });
+        }
+      } else {
+        this.setState({ error: true, errorMessage: 'Ya existe un usuario con esas credenciales' });
+      }
+    });
+  }
+
+  cancelForm() {
+    this.setState({ cancel: true });
   }
 
   render() {
-    const { error, errorMessage, registerForm, accessToPanel } = this.state;
+    const { error, errorMessage, cancel, accessToPanel } = this.state;
     if (accessToPanel) {
       return <Redirect to="/" />;
     }
-    return registerForm ? (
-      <Redirect to="/registro" />
-    ) : (
-      <div className="loginDiv">
-        <h1>Inicia sesión</h1>
+    if (cancel) {
+      return <Redirect to="/login" />;
+    }
+    return (
+      <div className="signInDiv">
+        <h1>Registrarme en el foro</h1>
         <TextInput
           required
           minLength={3}
@@ -89,6 +89,15 @@ class Login extends Component {
         />
         <TextInput
           required
+          divClassName="packLoginDiv"
+          labelClassName="loginLabel"
+          className="loginInput"
+          label="Email"
+          type="email"
+          ref={this.email}
+        />
+        <TextInput
+          required
           minLength={8}
           divClassName="packLoginDiv"
           labelClassName="loginLabel"
@@ -97,15 +106,14 @@ class Login extends Component {
           type="password"
           ref={this.password}
         />
-        {error && <p>{errorMessage}</p>}
         <CustomButton
           className="logInButton"
           backgroundColor="#4ca540"
           height={35}
           fontSize={20}
           borderRadius="10px"
-          onClick={this.userLogin}
-          text="Iniciar sesión"
+          onClick={this.registryUser}
+          text="Registrarme"
         />
         <CustomButton
           className="signInButton"
@@ -113,15 +121,20 @@ class Login extends Component {
           height={35}
           fontSize={20}
           borderRadius="10px"
-          onClick={this.openSignInForm}
-          text="Registrar"
+          onClick={this.cancelForm}
+          text="Cancelar"
         />
+        {error && <span>{errorMessage}</span>}
       </div>
     );
   }
 }
 
+const mapStateToProps = props => ({
+  token: props && props.token
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Login);

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
 import Home from '../pages/Home';
 import reduxActions from '../redux/actions/index.js';
+import Login from '../component/Login';
+import SignIn from '../component/SignIn';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -29,11 +31,12 @@ class MainLayout extends Component {
   render() {
     return (
       <div>
-        <header>Header</header>
+        {this.props.token && <header>Header</header>}
         <Switch>
+          <Route exact path="/login" render={() => <Login token={this.props.token} />} />
+          <Route exact path="/registro" render={() => <SignIn token={this.props.token} />} />
           <Route exact path="/" render={() => <Home token={this.props.token} />} />
         </Switch>
-        <div>Footer</div>
       </div>
     );
   }

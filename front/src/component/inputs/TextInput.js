@@ -3,8 +3,41 @@ import React from 'react';
 class TextInput extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      error: false,
+      errorMessage: null
+    };
     this.input = React.createRef();
+
+    this.validate = this.validate.bind(this);
   }
+
+  validate() {
+    const valueInput = this.input.current.value;
+    console.log('onBlur', valueInput);
+    console.log('required', this.props.required);
+    if (
+      this.props.type === 'email' &&
+      (valueInput.indexOf('@') === -1 || valueInput.indexOf('.') === -1)
+    ) {
+      this.setState({
+        error: true,
+        errorMessage: 'El campo es tipo email'
+      });
+    } else if (this.props.required && !valueInput) {
+      this.setState({ error: true, errorMessage: 'El campo es obligatorio' });
+    } else if (this.props.minLength > valueInput.length) {
+      this.setState({
+        error: true,
+        errorMessage: `El campo tiene que tener una longitud mínima de ${
+          this.props.minLength
+        } caracteres`
+      });
+    } else {
+      this.setState({ error: false, errorMessage: null });
+    }
+  }
+
   render() {
     const {
       type = 'text',
@@ -14,19 +47,25 @@ class TextInput extends React.Component {
       className,
       labelClassName,
       divClassName,
-      newLine
+      required
     } = this.props;
+    const { error, errorMessage } = this.state;
+
     if (label) {
       return (
         <div className={divClassName}>
           <p className={labelClassName}>{label}</p>
           <input
             ref={this.input}
+            className={`basicInput ${className}`}
+            style={error ? { borderColor: 'red' } : {}}
+            required={required}
             type={type}
             placeholder={placeholder}
             onChange={onChange}
-            className={className}
+            onBlur={this.validate}
           />
+          {error ? <p className="errorLabel">{errorMessage}</p> : null}
         </div>
       );
     }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import Login from '../component/Login';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import Menu from '../component/Menu';
+import Panel from '../component/Panel';
 
 class Home extends Component {
   constructor(props) {
@@ -15,17 +17,21 @@ class Home extends Component {
 
   render() {
     console.log('renderProps', this.props);
-    // const { token } = this.props;
-    const token = false;
-    return <h1>{token ? 'Panel' : <Login />}</h1>;
+    const { token } = this.props;
+    if (token) {
+      return (
+        <div>
+          <Panel />
+          <Menu />
+        </div>
+      );
+    }
+    return <Redirect to="/login" />;
   }
 }
 
-const mapStateToProps = props => {
-  console.log({ props });
-  return {
-    token: props && props.token
-  };
-};
-
+const mapStateToProps = props => ({
+  token: props && props.token,
+  nick: props && props.nick
+});
 export default connect(mapStateToProps)(Home);

@@ -2,7 +2,7 @@ let cookiesService = null;
 
 const loginUser = (nick, email, token) => {
   const encondedTokenString = btoa(token);
-  const minutes = 2;
+  const minutes = 30;
   let cookieExpirartionTime = new Date();
   cookieExpirartionTime.setTime(cookieExpirartionTime.getTime() + 1000 * 60 * minutes);
 
