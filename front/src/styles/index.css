@@ -1,13 +1,16 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+header {
+  height: 50px;
 }
 
 .basicInput {
@@ -21,6 +24,7 @@ code {
 }
 
 /* LOGIN AND SIGN IN */
+
 .loginDiv {
   width: 60%;
   border: 1px solid;
@@ -66,17 +70,18 @@ code {
   margin: 0 auto;
   text-align: center;
 }
+
 /* END LOGIN AND SIGN IN */
 
 /* LISTA DE CHATS */
+
 .listChatDiv {
-  width: 75%;
   padding-left: 25px;
   padding-right: 25px;
   margin-bottom: 20px;
 }
 
-.listChatDiv > div {
+.listChatDiv>div {
   display: flex;
   justify-content: space-between;
   margin-bottom: -10px;
@@ -92,6 +97,32 @@ code {
 }
 
 .chatStatusSpan {
-  margin-right: 10px;
+  margin-right: 25px;
 }
+
+.panelDiv {
+  width: 80%;
+}
+
+.menuDiv {
+  width: 20%;
+  border-left: 1px solid;
+}
+
+.menuDiv>ul {
+  list-style: none;
+}
+
+.menuDiv>ul>li {
+  margin-bottom: 20px;
+}
+
+.homeDiv {
+  display: flex;
+}
+
+.profileInfoP {
+  text-align: center;
+}
+
 /* END LISTA DE CHATS */

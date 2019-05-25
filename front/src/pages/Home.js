@@ -16,11 +16,10 @@ class Home extends Component {
   }
 
   render() {
-    console.log('renderProps', this.props);
     const { token } = this.props;
     if (token) {
       return (
-        <div>
+        <div className="homeDiv">
           <Panel />
           <Menu />
         </div>

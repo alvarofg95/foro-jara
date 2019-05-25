@@ -2,12 +2,22 @@ let cookiesService = null;
 
 const loginUser = (nick, email, token) => {
   const encondedTokenString = btoa(token);
+  const encondedNickString = btoa(nick);
+  const encondedEmailString = btoa(email);
   const minutes = 30;
   let cookieExpirartionTime = new Date();
   cookieExpirartionTime.setTime(cookieExpirartionTime.getTime() + 1000 * 60 * minutes);
 
   try {
     cookiesService.set('tokenInfo', encondedTokenString, {
+      path: '/',
+      expires: cookieExpirartionTime
+    });
+    cookiesService.set('nickInfo', encondedNickString, {
+      path: '/',
+      expires: cookieExpirartionTime
+    });
+    cookiesService.set('emailInfo', encondedEmailString, {
       path: '/',
       expires: cookieExpirartionTime
     });
