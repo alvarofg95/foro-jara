@@ -1,4 +1,6 @@
 export default `
+  scalar Date
+  
   type Chat {
     _id: String!
     userId: String!
@@ -8,6 +10,7 @@ export default `
     messages: [String]
     numUsers: Int
     numMessages: Int
+    creationDate: Date
     creationDateString: String
   }
 

@@ -147,4 +147,39 @@ header {
   text-align: center;
 }
 
+.spanNewChat {
+  width: 100px;
+}
+
+.inputNewChat {
+  margin-left: 20px;
+  height: 30px;
+  margin-top: 10px;
+  width: 80%;
+  font-size: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.textareaNewChat {
+  margin-left: 20px;
+  height: 30px;
+  margin-top: 10px;
+  width: 80%;
+  font-size: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-height: 200px;
+  resize: none;
+}
+
+.btnSaveGroup {
+  text-align: center;
+  margin-top: 150px;
+}
+
 /* END LISTA DE CHATS */
+
+.flex {
+  display: flex;
+}

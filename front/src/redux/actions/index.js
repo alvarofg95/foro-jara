@@ -79,13 +79,14 @@ const loadAppInfo = cookies => {
       cookiesService = cookies;
     }
     const encondedTokenString = cookiesService.get('tokenInfo');
-    console.log({ encondedTokenString });
+    const encondedUserIdString = cookiesService.get('userIdInfo');
     let decodedCookieString = '';
+    let decodedCookieUserIdString = '';
     let appInfo = {};
-    if (encondedTokenString) {
+    if (encondedTokenString && encondedUserIdString) {
       decodedCookieString = atob(encondedTokenString);
-      console.log({ decodedCookieString });
-      appInfo = { ...appInfo, token: decodedCookieString };
+      decodedCookieUserIdString = atob(encondedUserIdString);
+      appInfo = { ...appInfo, token: decodedCookieString, userId: decodedCookieUserIdString };
     }
     dispatch({ type: 'LOADED_APP_INFO', payload: appInfo });
   };

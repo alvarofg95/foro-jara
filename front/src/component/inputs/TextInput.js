@@ -14,8 +14,6 @@ class TextInput extends React.Component {
 
   validate() {
     const valueInput = this.input.current.value;
-    console.log('onBlur', valueInput);
-    console.log('required', this.props.required);
     if (
       this.props.type === 'email' &&
       (valueInput.indexOf('@') === -1 || valueInput.indexOf('.') === -1)
@@ -47,29 +45,58 @@ class TextInput extends React.Component {
       className,
       labelClassName,
       divClassName,
-      required
+      required,
+      inLine,
+      textArea,
+      rows
     } = this.props;
     const { error, errorMessage } = this.state;
 
     if (label) {
       return (
-        <div className={divClassName}>
+        <div className={`${(divClassName && divClassName) || ''} ${inLine ? 'flex' : ''}`}>
           <p className={labelClassName}>{label}</p>
-          <input
-            ref={this.input}
-            className={`basicInput ${className}`}
-            style={error ? { borderColor: 'red' } : {}}
-            required={required}
-            type={type}
-            placeholder={placeholder}
-            onChange={onChange}
-            onBlur={this.validate}
-          />
+          {textArea ? (
+            <textarea
+              ref={this.input}
+              className={`basicInput ${(className && className) || ''}`}
+              style={error ? { borderColor: 'red' } : {}}
+              required={required}
+              type={type}
+              placeholder={placeholder}
+              rows={rows}
+              onChange={onChange}
+              onBlur={this.validate}
+            />
+          ) : (
+            <input
+              ref={this.input}
+              className={`basicInput ${(className && className) || ''}`}
+              style={error ? { borderColor: 'red' } : {}}
+              required={required}
+              type={type}
+              placeholder={placeholder}
+              onChange={onChange}
+              onBlur={this.validate}
+            />
+          )}
           {error ? <p className="errorLabel">{errorMessage}</p> : null}
         </div>
       );
     }
-    return (
+    return textArea ? (
+      <textarea
+        ref={this.input}
+        className={`basicInput ${className}`}
+        style={error ? { borderColor: 'red' } : {}}
+        required={required}
+        type={type}
+        rows={rows}
+        placeholder={placeholder}
+        onChange={onChange}
+        onBlur={this.validate}
+      />
+    ) : (
       <input
         ref={this.input}
         className={`basicInput ${className}`}
