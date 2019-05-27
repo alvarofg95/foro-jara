@@ -2,21 +2,25 @@ let cookiesService = null;
 
 const logout = () => {
   const minutes = 30;
-  let cookieExpirartionTime = new Date('01/01/2000');
-  cookieExpirartionTime.setTime(cookieExpirartionTime.getTime() + 1000 * 60 * minutes);
+  let cookieExpirationTime = new Date('01/01/2000');
+  cookieExpirationTime.setTime(cookieExpirationTime.getTime() + 1000 * 60 * minutes);
 
   try {
+    cookiesService.set('userIdInfo', '', {
+      path: '/',
+      expires: cookieExpirationTime
+    });
     cookiesService.set('tokenInfo', '', {
       path: '/',
-      expires: cookieExpirartionTime
+      expires: cookieExpirationTime
     });
     cookiesService.set('nickInfo', '', {
       path: '/',
-      expires: cookieExpirartionTime
+      expires: cookieExpirationTime
     });
     cookiesService.set('emailInfo', '', {
       path: '/',
-      expires: cookieExpirartionTime
+      expires: cookieExpirationTime
     });
   } catch (e) {
     console.log(e);
@@ -28,26 +32,31 @@ const logout = () => {
   };
 };
 
-const loginUser = (nick, email, token) => {
+const loginUser = (userId, nick, email, token) => {
+  const encondedUserIdString = btoa(userId);
   const encondedTokenString = btoa(token);
   const encondedNickString = btoa(nick);
   const encondedEmailString = btoa(email);
   const minutes = 30;
-  let cookieExpirartionTime = new Date();
-  cookieExpirartionTime.setTime(cookieExpirartionTime.getTime() + 1000 * 60 * minutes);
+  let cookieExpirationTime = new Date();
+  cookieExpirationTime.setTime(cookieExpirationTime.getTime() + 1000 * 60 * minutes);
 
   try {
+    cookiesService.set('userIdInfo', encondedUserIdString, {
+      path: '/',
+      expires: cookieExpirationTime
+    });
     cookiesService.set('tokenInfo', encondedTokenString, {
       path: '/',
-      expires: cookieExpirartionTime
+      expires: cookieExpirationTime
     });
     cookiesService.set('nickInfo', encondedNickString, {
       path: '/',
-      expires: cookieExpirartionTime
+      expires: cookieExpirationTime
     });
     cookiesService.set('emailInfo', encondedEmailString, {
       path: '/',
-      expires: cookieExpirartionTime
+      expires: cookieExpirationTime
     });
   } catch (e) {
     console.log(e);

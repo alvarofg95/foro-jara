@@ -9,8 +9,8 @@ import CustomButton from './buttons/CustomButton';
 
 const mapDispatchToProps = dispatch => {
   return {
-    loginUser: ({ nick, email, token }) => {
-      dispatch(reduxActions.loginUser(nick, email, token));
+    loginUser: ({ userId, nick, email, token }) => {
+      dispatch(reduxActions.loginUser(userId, nick, email, token));
     }
   };
 };
@@ -38,11 +38,12 @@ class Login extends Component {
         if (res && res.data && res.data.login) {
           const {
             data: {
-              login: { token, email }
+              login: { _id, token, email }
             }
           } = res;
           if (token) {
             this.props.loginUser({
+              userId: _id,
               token,
               nick,
               email
