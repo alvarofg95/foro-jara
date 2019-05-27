@@ -1,6 +1,7 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -21,6 +22,10 @@ header {
   font-size: 10px;
   color: red;
   margin-top: 0px;
+}
+
+.defaultBtn {
+  cursor: pointer;
 }
 
 /* LOGIN AND SIGN IN */
@@ -75,13 +80,30 @@ header {
 
 /* LISTA DE CHATS */
 
+.createChatDiv {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.createChatInput {
+  width: 60%;
+  height: 30px;
+  vertical-align: top;
+}
+
+.createChat {
+  width: 20%;
+  margin-left: 2%;
+  border: none;
+}
+
 .listChatDiv {
   padding-left: 25px;
   padding-right: 25px;
   margin-bottom: 20px;
 }
 
-.listChatDiv>div {
+.listChatDiv > div {
   display: flex;
   justify-content: space-between;
   margin-bottom: -10px;
@@ -109,11 +131,11 @@ header {
   border-left: 1px solid;
 }
 
-.menuDiv>ul {
+.menuDiv > ul {
   list-style: none;
 }
 
-.menuDiv>ul>li {
+.menuDiv > ul > li {
   margin-bottom: 20px;
 }
 

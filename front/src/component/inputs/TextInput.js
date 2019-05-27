@@ -69,7 +69,18 @@ class TextInput extends React.Component {
         </div>
       );
     }
-    return <input ref={this.input} type={type} placeholder={placeholder} onChange={onChange} />;
+    return (
+      <input
+        ref={this.input}
+        className={`basicInput ${className}`}
+        style={error ? { borderColor: 'red' } : {}}
+        required={required}
+        type={type}
+        placeholder={placeholder}
+        onChange={onChange}
+        onBlur={this.validate}
+      />
+    );
   }
 }
 export default TextInput;
