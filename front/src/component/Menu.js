@@ -35,7 +35,15 @@ class Menu extends Component {
           <li>AMIGOS</li>
           <li>MULTIMEDIA</li>
           <li>
-            <CustomButton onClick={this.onClickLogout} text="CERRAR SESIÓN" />
+            <CustomButton
+              backgroundColor="#c35858"
+              text="CERRAR SESIÓN"
+              height={35}
+              fontSize={15}
+              borderRadius="10px"
+              border={false}
+              onClick={this.onClickLogout}
+            />
           </li>
         </ul>
       </div>

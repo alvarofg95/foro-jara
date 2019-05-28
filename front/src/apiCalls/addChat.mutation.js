@@ -2,6 +2,7 @@ const ADD_CHAT_MUTATION = `mutation addChat($userId: String!, $name: String!, $d
     addChat(userId: $userId, name: $name, description: $description, tags: $tags) {
       _id
       userId
+      slug
       name
       description
       tags

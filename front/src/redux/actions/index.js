@@ -80,13 +80,21 @@ const loadAppInfo = cookies => {
     }
     const encondedTokenString = cookiesService.get('tokenInfo');
     const encondedUserIdString = cookiesService.get('userIdInfo');
+    const encondedNickString = cookiesService.get('nickInfo');
     let decodedCookieString = '';
     let decodedCookieUserIdString = '';
+    let decodedCookieNickString = '';
     let appInfo = {};
     if (encondedTokenString && encondedUserIdString) {
       decodedCookieString = atob(encondedTokenString);
       decodedCookieUserIdString = atob(encondedUserIdString);
-      appInfo = { ...appInfo, token: decodedCookieString, userId: decodedCookieUserIdString };
+      decodedCookieNickString = atob(encondedNickString);
+      appInfo = {
+        ...appInfo,
+        token: decodedCookieString,
+        userId: decodedCookieUserIdString,
+        nick: decodedCookieNickString
+      };
     }
     dispatch({ type: 'LOADED_APP_INFO', payload: appInfo });
   };

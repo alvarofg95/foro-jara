@@ -1,6 +1,22 @@
 import mongoose from 'mongoose';
+import User from '../graphql/types/User';
 
 const Schema = mongoose.Schema;
+
+const messageSchema = new Schema({
+  text: {
+    type: String,
+    required: true
+  },
+  userId: {
+    type: String,
+    required: true
+  },
+  nick: {
+    type: String,
+    required: true
+  }
+});
 
 // Create the User Schema.
 const fecha = new Date();
@@ -10,6 +26,10 @@ const ChatSchema = new Schema({
     required: true
   },
   name: {
+    type: String,
+    required: true
+  },
+  slug: {
     type: String,
     required: true
   },
@@ -24,7 +44,7 @@ const ChatSchema = new Schema({
   ],
   messages: [
     {
-      type: String
+      type: messageSchema
     }
   ],
   numUsers: {

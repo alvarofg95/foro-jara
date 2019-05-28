@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Icon from './images/Icon';
 import CustomButton from './buttons/CustomButton';
 import postToAPI from '../apiCalls/postToAPI';
@@ -8,6 +9,7 @@ import CHATS_QUERY from '../apiCalls/chats.query';
 import TextInput from './inputs/TextInput';
 import TagInput from './inputs/TagInput';
 import ADD_CHAT_MUTATION from '../apiCalls/addChat.mutation';
+import { formattedDate } from '../utils';
 
 const CUSTOM_STYLE = {
   width: '50%'
@@ -18,11 +20,6 @@ const cutDescription = description => {
     return `${description.substring(0, 249)}...`;
   }
   return description;
-};
-
-const formattedDate = dateString => {
-  const dateArray = dateString.split('-');
-  return `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`;
 };
 
 class Panel extends Component {
@@ -70,7 +67,6 @@ class Panel extends Component {
         description,
         tags: []
       }).then(res => {
-        console.log({ res });
         this.setState({ openModal: false });
         this.loadChats();
       });
@@ -141,7 +137,7 @@ class Panel extends Component {
         {this.state.loading && <span>Cargando...</span>}
         {this.state.chatList.map(item => (
           <div className="listChatDiv" key={item._id}>
-            <div>
+            <Link className="subListChatDiv" to={`chat/${item.slug}`} params={{ slug: item.slug }}>
               <span className="chatNameList">{item.name}</span>
               <div>
                 <span className="chatStatusSpan">
@@ -169,7 +165,7 @@ class Panel extends Component {
                   {formattedDate(item.creationDateString)}
                 </span>
               </div>
-            </div>
+            </Link>
             <p>{cutDescription(item.description)}</p>
           </div>
         ))}

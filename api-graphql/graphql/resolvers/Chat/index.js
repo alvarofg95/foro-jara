@@ -1,6 +1,7 @@
 import mongodb from 'mongodb';
 // The Chat schema.
 import Chat from '../../../models/Chat';
+import { createSlug } from '../../../utils/createToken';
 
 export default {
   Query: {
@@ -14,6 +15,7 @@ export default {
     chats: () => {
       return new Promise((resolve, reject) => {
         Chat.find({})
+          .sort({ creationDate: -1 })
           .populate()
           .exec((err, res) => {
             err ? reject(err) : resolve(res);
@@ -23,22 +25,21 @@ export default {
   },
   Mutation: {
     addChat: (root, { userId, name, description, tags }) => {
-      console.log({ addChat: { name, description, tags, userId } });
       return new Promise((resolve, reject) => {
         const newChat = new Chat({
           _id: new mongodb.ObjectId(),
           name,
           description,
           tags,
-          userId
+          userId,
+          slug: createSlug(name)
         });
-        console.log({ newChat });
         newChat.save((err, res) => {
-          console.log({ err, res });
           err ? reject(err) : resolve(res);
         });
       });
     }
+    
     /*   editUser: (root, { id, name, email }) => {
       return new Promise((resolve, reject) => {
         User.findOneAndUpdate({ id }, { $set: { name, email } }).exec((err, res) => {

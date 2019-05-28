@@ -1,5 +1,5 @@
-const CHATS_QUERY = `query chats {
-  chats {
+const CHAT_QUERY = `query chat($slug: String!) {
+  chat(slug: $slug) {
     _id
     slug
     name
@@ -11,4 +11,4 @@ const CHATS_QUERY = `query chats {
   }
 }`;
 
-export default CHATS_QUERY;
+export default CHAT_QUERY;

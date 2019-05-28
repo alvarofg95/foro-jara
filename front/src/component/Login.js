@@ -28,6 +28,7 @@ class Login extends Component {
 
     this.userLogin = this.userLogin.bind(this);
     this.openSignInForm = this.openSignInForm.bind(this);
+    this.onKeyPressed = this.onKeyPressed.bind(this);
   }
 
   userLogin() {
@@ -69,6 +70,12 @@ class Login extends Component {
     this.setState({ registerForm: true });
   }
 
+  onKeyPressed(e) {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      this.userLogin();
+    }
+  }
+
   render() {
     const { error, errorMessage, registerForm, accessToPanel } = this.state;
     if (accessToPanel) {
@@ -86,6 +93,7 @@ class Login extends Component {
           labelClassName="loginLabel"
           className="loginInput"
           label="Nombre de usuario"
+          onKeyDown={this.onKeyPressed}
           ref={this.nick}
         />
         <TextInput
@@ -96,6 +104,7 @@ class Login extends Component {
           className="loginInput"
           label="Contraseña"
           type="password"
+          onKeyDown={this.onKeyPressed}
           ref={this.password}
         />
         {error && <p>{errorMessage}</p>}

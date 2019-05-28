@@ -48,7 +48,8 @@ class TextInput extends React.Component {
       required,
       inLine,
       textArea,
-      rows
+      rows,
+      onKeyDown
     } = this.props;
     const { error, errorMessage } = this.state;
 
@@ -78,6 +79,7 @@ class TextInput extends React.Component {
               placeholder={placeholder}
               onChange={onChange}
               onBlur={this.validate}
+              onKeyDown={onKeyDown}
             />
           )}
           {error ? <p className="errorLabel">{errorMessage}</p> : null}
@@ -106,6 +108,7 @@ class TextInput extends React.Component {
         placeholder={placeholder}
         onChange={onChange}
         onBlur={this.validate}
+        onKeyDown={onKeyDown}
       />
     );
   }

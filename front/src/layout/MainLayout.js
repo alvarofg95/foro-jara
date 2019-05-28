@@ -3,6 +3,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
 import Home from '../pages/Home';
+import Chat from '../pages/Chat';
 import reduxActions from '../redux/actions/index.js';
 import Login from '../component/Login';
 import SignIn from '../component/SignIn';
@@ -36,6 +37,11 @@ class MainLayout extends Component {
           <Route exact path="/login" render={() => <Login token={this.props.token} />} />
           <Route exact path="/registro" render={() => <SignIn token={this.props.token} />} />
           <Route exact path="/" render={() => <Home token={this.props.token} />} />
+          <Route
+            exact
+            path="/chat/:slug"
+            render={({ match: { params } }) => <Chat slug={params.slug} />}
+          />
         </Switch>
       </div>
     );

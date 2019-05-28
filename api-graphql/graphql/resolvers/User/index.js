@@ -3,7 +3,7 @@ import mongodb from 'mongodb';
 import User from '../../../models/User';
 import { encryptPassword, comparePassword } from '../../../utils/encryptPassword';
 import ERRORS from '../../../utils/errors';
-import createToken from '../../../utils/createToken';
+import { createToken } from '../../../utils/createToken';
 
 export default {
   Query: {

@@ -26,6 +26,7 @@ header {
 
 .defaultBtn {
   cursor: pointer;
+  outline: none;
 }
 
 /* LOGIN AND SIGN IN */
@@ -78,6 +79,11 @@ header {
 
 /* END LOGIN AND SIGN IN */
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
 /* LISTA DE CHATS */
 
 .createChatDiv {
@@ -103,7 +109,7 @@ header {
   margin-bottom: 20px;
 }
 
-.listChatDiv > div {
+.subListChatDiv {
   display: flex;
   justify-content: space-between;
   margin-bottom: -10px;
@@ -183,3 +189,59 @@ header {
 .flex {
   display: flex;
 }
+
+/* CHAT */
+
+.chatTitle {
+  height: 100px;
+  border: 1px solid;
+  align-items: center;
+}
+
+.chatTitleH3 {
+  width: 90%;
+  padding: 10px;
+}
+
+.chatStatus {
+  position: absolute;
+  top: 55px;
+  right: 0px;
+}
+
+.message {
+  background-color: #c5c5e4;
+  padding: 10px;
+  width: 90%;
+  margin: 10px;
+  border-radius: 15px;
+  padding-left: 20px;
+}
+
+.myMessage {
+  background-color: #e6c7c7;
+  padding: 10px;
+  width: 90%;
+  margin: 10px;
+  border-radius: 15px;
+  padding-right: 20px;
+  text-align: right;
+  margin-left: auto;
+}
+
+.sendDiv {
+  position: absolute;
+  bottom: 10px;
+  height: 80px;
+  width: 100%;
+  align-items: center;
+}
+
+.sendDiv > textarea {
+  width: 90%;
+  height: 93%;
+  resize: none;
+  padding: 10px;
+}
+
+/* END CHAT */

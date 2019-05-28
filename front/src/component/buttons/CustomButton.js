@@ -1,10 +1,25 @@
 import React from 'react';
 
-export default ({ text, onClick, className, backgroundColor, height, fontSize, borderRadius }) => (
+export default ({
+  text,
+  onClick,
+  className,
+  backgroundColor,
+  height,
+  fontSize,
+  borderRadius,
+  border
+}) => (
   <button
     onClick={onClick}
-    className={`${className} defaultBtn`}
-    style={{ backgroundColor: backgroundColor, height: height, fontSize: fontSize, borderRadius: borderRadius }}
+    className={`${(className && className) || ''} defaultBtn`}
+    style={{
+      backgroundColor: backgroundColor,
+      height: height,
+      fontSize: fontSize,
+      borderRadius: borderRadius,
+      border: border === false ? 'none' : ''
+    }}
   >
     {text}
   </button>
